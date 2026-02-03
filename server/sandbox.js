@@ -1,6 +1,7 @@
 /* eslint-disable no-console, no-process-exit */
 import * as avenuedelabrique from './websites/avenuedelabrique.js';
 import * as vinted from './websites/vinted.js';
+import * as deallabs from './websites/dealabs.js';
 
 async function scrapeADLB (website = 'https://www.avenuedelabrique.com/promotions-et-bons-plans-lego') {
   try {
@@ -35,5 +36,5 @@ async function scrapeVinted (lego) {
 
 const [,, param] = process.argv;
 
-scrapeADLB(param);
-//scrapeVinted(param)
+//scrapeADLB(param);
+scrapeVinted(param)

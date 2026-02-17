@@ -36,6 +36,7 @@ console.log("test");
 var linkSetHighestReduction = "https://www.dealabs.com/bons-plans/lego-star-wars-75192-faucon-millenium-ucs-7541-pieces-3269179"
 console.log(linkSetHighestReduction)
 
+
 /**
  * 🧱
  * Easy 😁?
@@ -49,20 +50,63 @@ console.log(linkSetHighestReduction)
 // 1. Create a variable and assign it the number of deals
 // 2. Log the variable
 
+var numberOfDeals = deals.length
+console.log(numberOfDeals)
+
+
 // 🎯 TODO 3: Website name
 // 1. Create a variable and assign it the list of shopping community name only
 // 2. Log the variable
 // 3. Log how many shopping communities we have
+
+var shoppingCommunityName = [];
+for (let i = 0; i < numberOfDeals; i++) {
+  shoppingCommunityName.push(deals[i].community)
+}
+//deals.forEach(oneDeal =>)
+console.log(shoppingCommunityName)
+console.log(new Set(shoppingCommunityName).size)
+
 
 // 🎯 TODO 4: Sort by price
 // 1. Create a function to sort the deals by price
 // 2. Create a variable and assign it the list of sets by price from lowest to highest
 // 3. Log the variable
 
+function sortByPrice(list) {
+  var sortedList = []
+  var l = list.length
+
+  for (let j = 0; j < l; j++) {
+    var lowestPrice = 99999
+    var indexLowestPrice = -1
+    for (let i = 0; i < l-j; i++) {
+      if (list[i].price < lowestPrice) {
+        indexLowestPrice = i
+        lowestPrice = list[i].price
+      }
+    }
+    sortedList.push(list[indexLowestPrice])
+    list.splice(indexLowestPrice, 1)
+  }
+
+  return sortedList
+}
+
+var sortedDeals = sortByPrice(deals)
+console.log(sortedDeals)
+
+
 // 🎯 TODO 5: Sort by date
 // 1. Create a function to sort the deals by date
 // 2. Create a variable and assign it the list of deals by date from recent to old
 // 3. Log the variable
+
+function sortByDate () {
+  
+}
+
+
 
 // 🎯 TODO 6: Filter a specific percentage discount range
 // 1. Filter the list of deals between 50% and 75%

@@ -151,6 +151,17 @@ selectShow.addEventListener('change', async (event) => {
   render(currentDeals, currentPagination);
 });
 
+/**
+ * Select the page to display
+ * * we enter this everry time we change the variable
+ */
+selectPage.addEventListener('change', async (event) => {
+  const deals = await fetchDeals(parseInt(event.target.value), currentPagination.pageSize);
+
+  //setCurrentDeals(deals);
+  render(currentDeals, currentPagination);
+});
+
 document.addEventListener('DOMContentLoaded', async () => {
   const deals = await fetchDeals();
 

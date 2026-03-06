@@ -21,6 +21,18 @@ This endpoint accepts the following optional query string parameters:
 - `id` - lego set id to return
 */
 
+
+
+//
+//
+//
+// COMMIT AND PUSH YOUR CODE TO GITHUB BEFORE CONTINUING
+//
+//
+//
+
+
+
 // current deals on the page
 let currentDeals = [];
 let currentPagination = {};
@@ -31,6 +43,14 @@ const selectPage = document.querySelector('#page-select');
 const selectLegoSetIds = document.querySelector('#lego-set-id-select');
 const sectionDeals= document.querySelector('#deals');
 const spanNbDeals = document.querySelector('#nbDeals');
+// Feature 2 - Filter by best discount
+const buttonBestDiscount = document.querySelector('#filter-best-discount');
+// Feature 3 - Filter by most commented
+const buttonMostCommented = document.querySelector('#filter-most-commented');
+// Feature 4 - Filter by hot deals
+const buttonHotDeals = document.querySelector('#filter-hot-deals');
+// Feature 5 & Feature 6- Sort by price and date
+const SelectSortByPriceOrByDate = document.querySelector('#sort-select');
 
 /**
  * Set global value
@@ -79,6 +99,10 @@ const renderDeals = deals => {
       return `
       <div class="deal" id=${deal.uuid}>
         <span>${deal.id}</span>
+        <span>${deal.discount}%</span>
+        <span>${deal.comments}</span>
+        <span>${deal.temperature}</span>
+        <span>${new Date(deal.published * 1000).toLocaleString('fr-FR')}</span>
         <a href="${deal.link}">${deal.title}</a>
         <span>${deal.price}</span>
       </div>
@@ -151,16 +175,100 @@ selectShow.addEventListener('change', async (event) => {
   render(currentDeals, currentPagination);
 });
 
+
+
+var SelectedPage = 1; // so I can reuse it other places in the code, for example when I filter by best discount, I want to keep the same page but with the filtered deals
 /**
- * Select the page to display
+ * Feature 1 - Browse pages
  * * we enter this everry time we change the variable
  */
 selectPage.addEventListener('change', async (event) => {
-  const deals = await fetchDeals(parseInt(event.target.value), currentPagination.pageSize);
+  SelectedPage = parseInt(event.target.value);
+  const deals = await fetchDeals(SelectedPage, currentPagination.pageSize);
 
-  //setCurrentDeals(deals);
+  setCurrentDeals(deals);
   render(currentDeals, currentPagination);
 });
+
+/**
+ * Feature 2 - Filter by best discount
+ * So that I can browse deals with a discount more important than 20%
+ */
+buttonBestDiscount.addEventListener('click', async (event) => {
+  console.log("test");
+  console.log(deals);
+  console.log(currentDeals);
+  
+  const filteredDeals = currentDeals.filter(deal => deal.discount > 20);
+  console.log(filteredDeals);
+
+  //setCurrentDeals(filteredDeals);
+  console.log(currentPagination);
+  render(filteredDeals, SelectedPage);
+});
+
+/*
+Feature 3 - Filter by most commented
+So that I can browse deals with more than 5 comments
+*/
+buttonMostCommented.addEventListener('click', async (event) => {
+  const filteredDeals = currentDeals.filter(deal => deal.comments > 5);
+
+  //setCurrentDeals(filteredDeals);
+  render(filteredDeals, SelectedPage);
+});
+
+/*
+Feature 4 - Filter by hot deals
+So that I can browse deals with a temperature more important than 100
+*/
+buttonHotDeals.addEventListener('click', async (event) => {
+  console.log("test");
+  const filteredDeals = currentDeals.filter(deal => deal.comments > 5);
+
+  //setCurrentDeals(filteredDeals);
+  render(filteredDeals, SelectedPage);
+});
+
+/*
+Feature 5 & Feature 6 - Sort by price and date
+So that I can easily identify cheapest and expensive deals
+*/
+SelectSortByPriceOrByDate.addEventListener('change', (event) => {
+  if (event.target.value === "price-asc") {
+    const copyCurrentDeals = [...currentDeals];
+    const sortedDeals = copyCurrentDeals.sort((a, b) => a.price - b.price);
+
+    currentDeals = sortedDeals;
+    render(currentDeals, currentPagination);
+  }
+
+  if (event.target.value === "price-desc") {
+    const copyCurrentDeals = [...currentDeals];
+    const sortedDeals = copyCurrentDeals.sort((a, b) => b.price - a.price);
+
+    currentDeals = sortedDeals;
+    render(currentDeals, currentPagination);
+  }
+
+  if (event.target.value === "date-desc") {
+    const copyCurrentDeals = [...currentDeals];
+    const sortedDeals = copyCurrentDeals.sort((a, b) => b.published - a.published);
+
+    currentDeals = sortedDeals;
+    render(currentDeals, currentPagination);
+  }
+
+  if (event.target.value === "date-asc") {
+    const copyCurrentDeals = [...currentDeals];
+    const sortedDeals = copyCurrentDeals.sort((a, b) => a.published - b.published);
+
+    currentDeals = sortedDeals;
+    render(currentDeals, currentPagination);
+  }
+});
+
+
 
 document.addEventListener('DOMContentLoaded', async () => {
   const deals = await fetchDeals();

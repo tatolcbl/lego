@@ -49,8 +49,10 @@ const buttonBestDiscount = document.querySelector('#filter-best-discount');
 const buttonMostCommented = document.querySelector('#filter-most-commented');
 // Feature 4 - Filter by hot deals
 const buttonHotDeals = document.querySelector('#filter-hot-deals');
-// Feature 5 & Feature 6- Sort by price and date
+// Feature 5 & Feature 6 - Sort by price and date
 const SelectSortByPriceOrByDate = document.querySelector('#sort-select');
+// Feature 7 - Display Vinted sales
+const SelectorLegoSetId = document.querySelector('#lego-set-id-select');
 
 /**
  * Set global value
@@ -268,6 +270,19 @@ SelectSortByPriceOrByDate.addEventListener('change', (event) => {
   }
 });
 
+/*
+Feature 7 - Display Vinted sales
+*/
+SelectorLegoSetId.addEventListener('change', async (event) => {
+  var indexLegoSetId = 0;
+  for (let  i = 0; i < currentDeals.length; i++) {
+    if (currentDeals[i].id === event.target.value) {
+      indexLegoSetId = i;
+      break
+    }
+  }
+  window.open("https://www.vinted.fr/catalog?search_text=Lego+" + event.target.value);
+});
 
 
 document.addEventListener('DOMContentLoaded', async () => {

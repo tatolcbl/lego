@@ -351,32 +351,52 @@ select {
   font-size: 24px;
 }
 
-.opportunity-pill {
-  border-radius: 999px;
-  padding: 4px 10px;
-  font-size: 12px;
+.opportunity-badge {
+  border-radius: 12px;
+  padding: 6px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.opportunity-score-number {
+  font-size: 52px;
   font-weight: 800;
+  line-height: 1;
+}
+
+.opportunity-score-label {
+  font-size: 11px;
+  font-weight: 700;
   text-transform: uppercase;
+  opacity: 0.85;
+  margin-top: 2px;
 }
 
-.opportunity-top {
-  color: #0b2f0f;
-  background: #77df63;
+.opportunity-outstanding {
+  color: #fff3f3;
+  background: #c62828;
 }
 
-.opportunity-high {
-  color: #2b2003;
-  background: #ffd34d;
+.opportunity-excellent {
+  color: #3a2200;
+  background: #ff9800;
 }
 
-.opportunity-medium {
-  color: #182734;
-  background: #76c4ff;
+.opportunity-good {
+  color: #102614;
+  background: #43a047;
+}
+
+.opportunity-average {
+  color: #eef6ff;
+  background: #1e88e5;
 }
 
 .opportunity-low {
   color: #f2f5f8;
-  background: #4a5670;
+  background: #616161;
 }
 
 .published {
@@ -386,7 +406,7 @@ select {
 
 .deal-title {
   margin: 0;
-  font-size: 26px;
+  font-size: 20.8px;
   line-height: 1.2;
   overflow-wrap: anywhere;
 }
@@ -399,29 +419,30 @@ select {
 }
 
 .price {
-  color: #62d37d;
-  font-size: 40px;
+  color: #2e7d32;
+  font-size: 26.4px;
   font-weight: 800;
 }
 
 .old-price {
-  color: #ff4a5e;
+  color: var(--muted);
   text-decoration: line-through;
-  font-size: 22px;
+  font-size: 14.3px;
 }
 
 .savings {
-  color: #ffd34d;
-  font-size: 40px;
+  color: #c62828;
+  font-size: 38.4px;
   font-weight: 800;
   line-height: 1;
 }
 
 .discount {
-  color: #1f2f1f;
-  background: #5ecb72;
-  padding: 4px 8px;
+  color: #0f2b12;
+  background: #66bb6a;
+  padding: 3px 7px;
   border-radius: 8px;
+  font-size: 15.6px;
   font-weight: 800;
 }
 
@@ -431,6 +452,10 @@ select {
   gap: 8px;
   flex-wrap: wrap;
   font-size: 16px;
+}
+
+.deal-subline-temperature {
+  color: inherit;
 }
 
 .deal-actions {
@@ -468,12 +493,6 @@ select {
   color: #ffd34d;
 }
 
-.comment-count {
-  color: var(--muted);
-  font-size: 20px;
-  font-weight: 700;
-}
-
 .deal-link {
   border-radius: 999px;
   background: linear-gradient(90deg, #02a5ca, #07c1e2);
@@ -506,15 +525,19 @@ select {
 
 @media (max-width: 1200px) {
   .deal-title {
-    font-size: 21px;
+    font-size: 16.8px;
+  }
+
+  .opportunity-score-number {
+    font-size: 40px;
   }
 
   .price {
-    font-size: 32px;
+    font-size: 24px;
   }
 
   .savings {
-    font-size: 32px;
+    font-size: 31.2px;
   }
 }
 
@@ -546,19 +569,23 @@ select {
   }
 
   .deal-title {
-    font-size: 17px;
+    font-size: 13.6px;
+  }
+
+  .opportunity-score-number {
+    font-size: 36px;
   }
 
   .price {
-    font-size: 30px;
+    font-size: 21.6px;
   }
 
   .savings {
-    font-size: 30px;
+    font-size: 28.8px;
   }
 
   .old-price {
-    font-size: 19px;
+    font-size: 13.2px;
   }
 
   .deal-meta {

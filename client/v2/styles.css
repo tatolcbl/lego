@@ -285,6 +285,93 @@ select {
   font-size: 24px;
 }
 
+.score-explainer {
+  background: #13191f;s
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+
+.score-explainer summary {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--accent);
+  list-style: none;
+  user-select: none;
+}
+
+.score-explainer summary::before {
+  content: '▶ ';
+  font-size: 10px;
+}
+
+.score-explainer[open] summary::before {
+  content: '▼ ';
+}
+
+.score-explainer-body {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.score-explainer-body p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.score-explainer-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.score-explainer-table th {
+  text-align: left;
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.score-explainer-table td {
+  padding: 5px 8px;
+  border-bottom: 1px solid #1e252e;
+  color: var(--text);
+}
+
+.score-explainer-table tr:last-child td {
+  border-bottom: none;
+}
+
+.score-explainer-table td:last-child {
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.score-explainer-note {
+  font-size: 12px !important;
+  font-style: italic;
+}
+
+.score-explainer-tiers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.score-explainer-tiers span {
+  border-radius: 8px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
 .deals {
   display: flex;
   flex-direction: column;
@@ -334,7 +421,7 @@ select {
 .deal-meta {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
 }
 
@@ -461,15 +548,9 @@ select {
 .deal-actions {
   margin-top: auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   gap: 12px;
-}
-
-.deal-actions-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
 .favorite-toggle {
@@ -589,8 +670,11 @@ select {
   }
 
   .deal-meta {
-    align-items: flex-start;
     flex-direction: column;
+  }
+
+  .favorite-toggle {
+    align-self: flex-end;
   }
 
   .deal-actions {

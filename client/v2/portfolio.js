@@ -140,27 +140,33 @@ const computeOpportunityScore = deal => {
 };
 
 const getOpportunityLabel = score => {
-  if (score >= 85) {
-    return 'Exceptionnel';
+  if (score >= 81) {
+    return 'exceptionnel';
   }
-  if (score >= 70) {
-    return 'Tres bon';
+  if (score >= 51) {
+    return 'interessant';
   }
-  if (score >= 55) {
-    return 'Correct';
+  if (score >= 31) {
+    return 'correcte';
   }
-  return 'Moyen';
+  if (score >= 11) {
+    return 'moyen';
+  }
+  return 'faible';
 };
 
 const getOpportunityTierClass = score => {
-  if (score >= 85) {
-    return 'opportunity-top';
+  if (score >= 81) {
+    return 'opportunity-outstanding';
   }
-  if (score >= 70) {
-    return 'opportunity-high';
+  if (score >= 51) {
+    return 'opportunity-excellent';
   }
-  if (score >= 55) {
-    return 'opportunity-medium';
+  if (score >= 31) {
+    return 'opportunity-good';
+  }
+  if (score >= 11) {
+    return 'opportunity-average';
   }
   return 'opportunity-low';
 };
@@ -244,38 +250,37 @@ const renderDeals = deals => {
         </figure>
         <div class="deal-content">
           <div class="deal-meta">
-            <div class="deal-signals">
-              <span class="temperature">${Math.round(temperature)}°</span>
-              <span class="opportunity-pill ${deal.opportunityClass}">
-                Opportunite ${deal.opportunityScore}/100 - ${deal.opportunityLabel}
-              </span>
-            </div>
-            <span class="published">Poste le ${publishedAt}</span>
+            <span class="published">Posté le ${publishedAt}</span>
+            <button
+              type="button"
+              class="favorite-toggle ${isFavorite ? 'is-favorite' : ''}"
+              data-deal-key="${deal.dealKey}"
+              aria-pressed="${isFavorite}"
+            >
+              ${isFavorite ? '★ Favori' : '☆ Favori'}
+            </button>
           </div>
           <h3 class="deal-title">${deal.title}</h3>
+          <div class="deal-signals">
+            <div class="opportunity-badge ${deal.opportunityClass}">
+              <span class="opportunity-score-number">${deal.opportunityScore}</span>
+              <span class="opportunity-score-label">/100 · ${deal.opportunityLabel}</span>
+            </div>
+          </div>
           <div class="price-line">
-            <span class="price">${formatPrice(price)}</span>
-            ${oldPrice ? `<span class="old-price">${formatPrice(oldPrice)}</span>` : ''}
-            ${discount ? `<span class="discount">-${discount}%</span>` : ''}
             ${savingsValue ? `<span class="savings">-${formatPrice(savingsValue)}</span>` : ''}
+            <span class="price">${formatPrice(price)}</span>
+            ${discount ? `<span class="discount">-${discount}%</span>` : ''}
+            ${oldPrice ? `<span class="old-price">${formatPrice(oldPrice)}</span>` : ''}
           </div>
           <div class="deal-subline">
             <span>Set #${deal.id}</span>
             <span>•</span>
             <span>${comments} commentaires</span>
+            <span>•</span>
+            <span class="deal-subline-temperature">${Math.round(temperature)}°</span>
           </div>
           <div class="deal-actions">
-            <div class="deal-actions-left">
-              <button
-                type="button"
-                class="favorite-toggle ${isFavorite ? 'is-favorite' : ''}"
-                data-deal-key="${deal.dealKey}"
-                aria-pressed="${isFavorite}"
-              >
-                ${isFavorite ? '★ Favori' : '☆ Favori'}
-              </button>
-              <span class="comment-count">💬 ${comments}</span>
-            </div>
             <a class="deal-link" href="${deal.link}" target="_blank" rel="noreferrer">Voir le deal</a>
           </div>
         </div>

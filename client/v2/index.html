@@ -2,73 +2,161 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>🧱 Lego | Predictability of a lego set deal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <h1>Lego</h1>
-    <section id="options">
-      <div id="show">
-        <label for="show-select">Show:</label>
-        <select name="show" id="show-select">
-          <option value="6">6</option>
-          <option value="12">12</option>
-          <option value="24">24</option>
-        </select>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-icon">🧱</span>
+        <h1>Lego Deals</h1>
       </div>
-      <div id="page">
-        <label for="page-select">Go to page:</label>
-        <select name="page" id="page-select"> </select>
-      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <section class="panel">
+          <div class="panel-head">
+            <h2>Filtres</h2>
+            <button class="ghost" id="reset-filters" type="button">Reinitialiser</button>
+          </div>
+
+          <div class="panel-block">
+            <div class="sidebar-inline-controls">
+              <div>
+                <label for="show-select">Afficher</label>
+                <select name="show" id="show-select">
+                  <option value="6">6</option>
+                  <option value="12">12</option>
+                  <option value="24">24</option>
+                </select>
+              </div>
+              <div>
+                <label for="page-select">Page</label>
+                <select name="page" id="page-select"></select>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-block">
+            <h3>Trier par</h3>
+            <select name="sort" id="sort-select">
+              <option value="date-desc">Les plus recents</option>
+              <option value="date-asc">Les plus anciens</option>
+              <option value="price-asc">Prix croissant</option>
+              <option value="price-desc">Prix decroissant</option>
+              <option value="opportunity-desc">Meilleure opportunite</option>
+            </select>
+          </div>
+
+          <div class="panel-block">
+            <h3>Score d'opportunite minimum</h3>
+            <div class="score-filter-line">
+              <input
+                type="range"
+                id="opportunity-score-range"
+                min="0"
+                max="100"
+                value="0"
+                step="5"
+              />
+              <strong id="opportunity-score-value">0</strong>
+            </div>
+            <button id="favorites-only-button" class="favorites-only-button" type="button">
+              ☆ Favoris uniquement
+            </button>
+          </div>
+
+          <div class="panel-block">
+            <h3>Options d'affichage</h3>
+            <div class="threshold-filter-line">
+              <label for="filter-discount-range">Remise minimale (%)</label>
+              <div class="score-filter-line">
+                <input
+                  type="range"
+                  id="filter-discount-range"
+                  min="0"
+                  max="80"
+                  value="0"
+                  step="1"
+                />
+                <strong id="filter-discount-value">0</strong>
+              </div>
+            </div>
+
+            <div class="threshold-filter-line">
+              <label for="filter-comments-range">Commentaires minimum</label>
+              <div class="score-filter-line">
+                <input
+                  type="range"
+                  id="filter-comments-range"
+                  min="0"
+                  max="10"
+                  value="0"
+                  step="1"
+                />
+                <strong id="filter-comments-value">0</strong>
+              </div>
+            </div>
+
+            <div class="threshold-filter-line">
+              <label for="filter-temperature-range">Temperature minimum</label>
+              <div class="score-filter-line">
+                <input
+                  type="range"
+                  id="filter-temperature-range"
+                  min="0"
+                  max="500"
+                  value="0"
+                  step="5"
+                />
+                <strong id="filter-temperature-value">0</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-block">
+            <h3>Lego set id</h3>
+            <select id="lego-set-id-select"></select>
+          </div>
+        </section>
+      </aside>
+
+      <section class="feed">
+        <section id="indicators" class="indicators">
+          <div class="indicator-card">
+            <span>Nombre de deals</span>
+            <strong id="nbDeals">0</strong>
+          </div>
+          <div class="indicator-card">
+            <span>Favoris sauvegardes</span>
+            <strong id="nbFavorites">0</strong>
+          </div>
+          <div class="indicator-card">
+            <span>Prix median observe</span>
+            <strong id="p50Sales">0</strong>
+          </div>
+        </section>
+
+        <section id="deals" class="deals"></section>
+      </section>
+    </main>
+
+    <section id="legacy-helpers" hidden>
       <div id="filters">
-        <button id="filter-best-discount" type="button">By best discount</button>
-        <button id="filter-most-commented" type="button">By most commented</button>
-        <button id="filter-hot-deals" type="button">By hot deals</button>
-      </div>
-      <div id="sort">
-        <label for="sort-select">Sort:</label>
-        <select name="sort" id="sort-select">
-          <option value="price-asc">Cheaper</option>
-          <option value="price-desc">Expensive</option>
-          <option value="date-desc">Recently published</option>
-          <option value="date-asc">Anciently published</option>
-        </select>
+        <button id="legacy-best-discount" type="button"></button>
+        <button id="legacy-most-commented" type="button"></button>
+        <button id="legacy-hot-deals" type="button"></button>
       </div>
     </section>
-    <section id="lego">
-      <h2>Lego sets</h2>
-      <div>
-        <label>Lego set id:</label>
-        <select id="lego-set-id-select"></select> 
-      </div>
-    </section>
-    <section id="indicators">
-      <h2>Indicators</h2>
-      <div>
-        <span>Number of deals</span>
-        <span id="nbDeals">0</span>
-      </div>
-      <div>
-        <span>Number of sales</span>
-        <span id="nbSales">0</span>
-      </div>
-      <div>
-        <span>p5 sales price value</span>
-        <span>0</span>
-      </div>
-      <div>
-        <span>p25 sales price value</span>
-        <span>0</span>
-      </div>
-      <div>
-        <span>p50 sales price value</span>
-        <span>0</span>
-      </div>
-      <div>
-        <span>Lifetime value</span>
-        <span>10 days</span>
-      </div>
-    </section>
-    <section id="deals"></section>
+
     <script type="text/javascript" charset="UTF-8" src="utils.js"></script>
     <script type="text/javascript" charset="UTF-8" src="portfolio.js"></script>
   </body>

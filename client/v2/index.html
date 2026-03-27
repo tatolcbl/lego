@@ -148,6 +148,33 @@
           </div>
         </section>
 
+        <details class="score-explainer">
+          <summary> Comment est calculé le score d'opportunité ?</summary>
+          <div class="score-explainer-body">
+            <p>Le score (0–100) combine 5 critères pondérés :</p>
+            <table class="score-explainer-table">
+              <thead>
+                <tr><th>Critère</th><th>Calcul</th><th>Poids</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Remise</td><td>remise / 70 × 100 &mdash; max a 70%</td><td>40%</td></tr>
+                <tr><td>Recence</td><td>decroissance exponentielle, demi-vie 48h</td><td>20%</td></tr>
+                <tr><td>Temperature</td><td>temperature / 500 × 100</td><td>20%</td></tr>
+                <tr><td>Commentaires</td><td>croissance logarithmique, plafond ~200</td><td>10%</td></tr>
+                <tr><td>Prix</td><td>(120 &minus; prix) / 120 × 100 &mdash; favorise les sets &lt; 120€</td><td>10%</td></tr>
+              </tbody>
+            </table>
+            <p class="score-explainer-note">Un facteur de confiance de 0,9 est applique si le prix, la date ou la remise est manquant.</p>
+            <div class="score-explainer-tiers">
+              <span class="opportunity-low">0–10 Faible</span>
+              <span class="opportunity-average">11–30 Moyen</span>
+              <span class="opportunity-good">31–50 Correcte</span>
+              <span class="opportunity-excellent">51–80 Interessant</span>
+              <span class="opportunity-outstanding">81–100 Exceptionnel</span>
+            </div>
+          </div>
+        </details>
+
         <section id="deals" class="deals"></section>
       </section>
     </main>
